@@ -1,75 +1,40 @@
+import { nanoid } from "nanoid";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+import TaskDetail from "./Components/TaskDetail";
+import TaskList from "./Components/TaskList";
 function App() {
-  // const Container = styled.div`
-  //   width: 100vw;
-  //   height: 100px;
-  //   display: grid;
-  //   grid-template-areas: tasks detail;
-  //   grid-template-columns: 2fr 1fr;
-  //   grid-template-rows: 50px 50px;
-  //   color: #619b8a;
-  //   font-style: oblique;
-  // `;
-
-  // const Tasks = styled(Container)`
-  //   display: flex;
-  //   justify-items: center;
-  //   align-items: center;
-  //   width: 100%;
-  //   height: 100%;
-  //   border: 1px solid #000;
-  //   grid-area: tasks;
-  //   background-color: #fe7f2d;
-  //   `;
-  //   const Detail = styled.div`
-  //   display: flex;
-  //   justify-items: center;
-  //   align-items: center;
-  //   width: 100%;
-  //   height: 100%;
-  //   border: 1px solid #000;
-  //   grid-area: detail;
-  //   background-color: #233d4d;
-  // `;
-  // const Title = styled.h3`
-  //   text-align: center;
-  //   font-family: "Raleway", sans-serif;
-  // `;
-  
+  const [taskList, setTaskList] = useState([]);
+  useEffect(() => {
+    setTaskList(example);
+  }, []);
   const Container = styled.div`
-  display: grid;
-  height: 100vh;
-  grid-template-areas: "title title"
-                        "tasks detail";
-  grid-template-columns: repeat(2,1fr);
-  grid-template-rows: 5vh minmax(90vh, 100vh);
+    display: grid;
+    height: 100vh;
+    grid-template-areas:
+      "title title"
+      "tasks detail";
+    grid-template-columns: 2fr 1fr;
+    box-sizing: border-box;
+    grid-template-rows: 5vh minmax(80vh, 90vh);
   `;
-  
-const Title = styled.h3`
-  grid-area: title;
-  text-align:center;
-`;
-const TasksContainer = styled.div`
-  grid-area: tasks;
-  display:flex;
-  justify-content:center;
-  align-content:center;
-`;
-const DetailContainer = styled.div`
-  grid-area: detail;
-  display:flex;
-  justify-content:center;
-  align-content:center;
-`;
+  const generateNRandomTasks = (n = 5) => {
+    return [...Array(n)].map((_, i) => `Task ${i + 1}`);
+  };
+  const example = generateNRandomTasks();
+
+  const Title = styled.h3`
+    font-family: "Raleway", sans-serif;
+    font-weight: 300;
+    grid-area: title;
+    text-align: center;
+  `;
+
   return (
     <Container>
       <Title>TODO App con Firebase</Title>
-      <TasksContainer>
-        <h4>Aqui van las tareas</h4>
-      </TasksContainer>
-      <DetailContainer>
-        <h4>Aqui van los detalles</h4>
-      </DetailContainer>
+      <TaskList key={nanoid()} taskList={taskList} />
+      <TaskDetail key={nanoid()} />
     </Container>
   );
 }
