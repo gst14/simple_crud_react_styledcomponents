@@ -10,16 +10,6 @@ const TaskList = ({ taskList }) => {
     justify-items: center;
     align-items: center;
   `;
-
-  // const generateNRandomTasks = (n = 7) => {
-  //   return [...Array(n)].map((_, i) => `Task ${i + 1}`);
-  // };
-  // const [takslist, setTasklist] = useState([]);
-  // const example = generateNRandomTasks();
-  // useEffect(() => {
-  //     setTasklist(example);
-  // }, [])
-
   return (
     <TasksContainer>
       {taskList.map(({ id, desc }) => {
