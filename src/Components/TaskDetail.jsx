@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
 import styled from "styled-components";
-const TaskInput = ({setTaskList}) => {
+const TaskInput = ({taskList}) => {
   const [description, setDescription] = useState("");
   const FormContainer = styled.form`
     grid-area: detail;
@@ -9,7 +9,7 @@ const TaskInput = ({setTaskList}) => {
     display: flex;
     flex-direction: column;
     width: 80%;
-    height: 30%;
+    height: 200px;
     justify-content: space-between;
     align-items: center;
     oveflow: hidden;
@@ -26,7 +26,9 @@ const TaskInput = ({setTaskList}) => {
 
   const submitTask = (e) => {
     e.preventDefault();
-    console.log("Hice enter");
+    taskList( list=>{
+        return [...list,{id: nanoid(), desc: description}]
+    } )
   };
 
   const BtnSaved = styled.button`
@@ -47,6 +49,7 @@ const TaskInput = ({setTaskList}) => {
         key={nanoid()}
         type="text"
         autoFocus="autoFocus"
+        required
         placeholder="Type a description"
         onChange={(e) => setDescription(e.target.value)}
         value={description}

@@ -16,17 +16,19 @@ function App() {
       "tasks detail";
     grid-template-columns: 2fr 1fr;
     box-sizing: border-box;
-    grid-template-rows: 5vh minmax(80vh, 90vh);
+    grid-template-rows: 10vh minmax(80vh, 90vh);
   `;
   const generateNRandomTasks = (n = 5) => {
-    return [...Array(n)].map((_, i) => `Task ${i + 1}`);
+    return [...Array(n)].map((_, i) => {
+      return { id: nanoid(), desc: `Task ${i + 1}` };
+    });
   };
   const example = generateNRandomTasks();
 
   const Title = styled.h3`
+    grid-area: title;
     font-family: "Raleway", sans-serif;
     font-weight: 300;
-    grid-area: title;
     text-align: center;
   `;
 
@@ -34,7 +36,7 @@ function App() {
     <Container>
       <Title>TODO App con Firebase</Title>
       <TaskList key={nanoid()} taskList={taskList} />
-      <TaskDetail key={nanoid()} />
+      <TaskDetail key={nanoid()} taskList={setTaskList} />
     </Container>
   );
 }
