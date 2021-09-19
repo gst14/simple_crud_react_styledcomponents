@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import "boxicons";
-const TaskListItem = ({ key, task }) => {
+const TaskListItem = ({ id, task, taskList }) => {
   const TastItem = styled.div`
     display: flex;
     flex-direction: row;
@@ -58,11 +58,25 @@ const TaskListItem = ({ key, task }) => {
     <TastItem>
       <TaskListItemDetail>{task}</TaskListItemDetail>
       <BtnArea>
-        <BtnModif>
-          <box-icon name="pencil" color='#ffffff'></box-icon>
+        <BtnModif
+          onClick={() => {
+            const finded = taskList.find((task) => task.id === id);
+            console.log(
+              finded ? `${JSON.stringify(finded)}` : "No hay coincidencias"
+            );
+          }}
+        >
+          <box-icon name="pencil" color="#ffffff"></box-icon>
         </BtnModif>
-        <BtnDelete>
-          <box-icon name="trash-alt" color='#ffffff'></box-icon>
+        <BtnDelete
+          onClick={() => {
+            const finded = taskList.find((task) => task.id === id);
+            console.log(
+              finded ? `${JSON.stringify(finded)}` : "No hay coincidencias"
+            );
+          }}
+        >
+          <box-icon name="trash-alt" color="#ffffff"></box-icon>
         </BtnDelete>
       </BtnArea>
     </TastItem>

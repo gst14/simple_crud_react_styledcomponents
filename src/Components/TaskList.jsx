@@ -34,7 +34,7 @@ const TaskList = ({ taskList }) => {
         <NoTaskItem>No hay tareas</NoTaskItem>
       ) : (
         taskList.map(({ id, desc }) => {
-          return <TaskListItem key={id} task={desc} />;
+          return <TaskListItem key={id} id={id} task={desc} taskList={taskList}/>;
         })
       )}
     </TasksContainer>
