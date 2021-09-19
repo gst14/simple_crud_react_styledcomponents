@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { nanoid } from "nanoid";
 import TaskListItem from "./TaskListItem";
-const TaskList = ({ taskList }) => {
+const TaskList = ({
+  taskList,
+  editMode,
+  setEditMode,
+  setCurrent,
+  setTaskList,
+}) => {
   const TasksContainer = styled.div`
     grid-area: tasks;
     display: flex;
@@ -27,15 +32,33 @@ const TaskList = ({ taskList }) => {
     align-items: center;
     padding-right: 0.625rem;
     margin-bottom: 5px;
+    box-shadow: 0.6px 0.5px 0.9px rgba(0, 0, 0, 0.018),
+      2.4px 1.8px 2.2px rgba(0, 0, 0, 0.028),
+      6px 4.6px 4.1px rgba(0, 0, 0, 0.036),
+      13px 9.9px 7.4px rgba(0, 0, 0, 0.042),
+      27.8px 21.2px 13.8px rgba(0, 0, 0, 0.047),
+      71px 54px 33px rgba(0, 0, 0, 0.04);
   `;
+
   return (
     <TasksContainer>
-      {taskList.length===0 ? (
-        <NoTaskItem>No hay tareas</NoTaskItem>
-      ) : (
+      {taskList.length !== 0 ? (
         taskList.map(({ id, desc }) => {
-          return <TaskListItem key={id} id={id} task={desc} taskList={taskList}/>;
+          return (
+            <TaskListItem
+              key={id}
+              id={id}
+              editMode={editMode}
+              setEditMode={setEditMode}
+              setCurrent={setCurrent}
+              task={desc}
+              taskList={taskList}
+              setTaskList={setTaskList}
+            />
+          );
         })
+      ) : (
+        <NoTaskItem>No hay tareas</NoTaskItem>
       )}
     </TasksContainer>
   );

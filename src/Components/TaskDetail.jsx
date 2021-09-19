@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-const TaskInput = ({ current, setCurrent, taskList }) => {
+const TaskInput = ({ current, setCurrent, editMode, setEditMode,taskList }) => {
   const [description, setDescription] = useState("");
 
   const [taskInput, settaskInput] = useState({});
@@ -11,7 +11,7 @@ const TaskInput = ({ current, setCurrent, taskList }) => {
       settaskInput(current);
       setDescription(current.desc);
     }
-  }, [taskInput]);
+  }, []);
 
   const FormContainer = styled.form`
     grid-area: detail;
@@ -26,6 +26,12 @@ const TaskInput = ({ current, setCurrent, taskList }) => {
     padding-botton: 30px;
     border: 1px solid #000;
     border-radius: 5px;
+    box-shadow: 0.6px 0.5px 0.9px rgba(0, 0, 0, 0.018),
+      2.4px 1.8px 2.2px rgba(0, 0, 0, 0.028),
+      6px 4.6px 4.1px rgba(0, 0, 0, 0.036),
+      13px 9.9px 7.4px rgba(0, 0, 0, 0.042),
+      27.8px 21.2px 13.8px rgba(0, 0, 0, 0.047),
+      71px 54px 33px rgba(0, 0, 0, 0.04);
   `;
 
   const TextTask = styled.input`
@@ -41,7 +47,7 @@ const TaskInput = ({ current, setCurrent, taskList }) => {
     font-family: "Raleway", sans-serif;
     cursor: pointer;
     color: #fff;
-    background-color: #000;
+    background-color: #01151c;
     top: -20px;
     width: 90%;
     height: 40px;
@@ -49,13 +55,19 @@ const TaskInput = ({ current, setCurrent, taskList }) => {
 
   const submitTask = (e) => {
     e.preventDefault();
+    setEditMode(false);
     taskList((list) => {
       return [...list, {id: nanoid(), desc: description}];
     });
   };
 
+  const editTask = ()=>{
+      alert(`La tarea: ${JSON.stringify(current)} sera modificada.`);
+      setEditMode(false);
+  }
+
   return (
-    <FormContainer onSubmit={submitTask}>
+    <FormContainer onSubmit={!editMode? submitTask : editTask}>
       <h3>Add Task</h3>
       <TextTask
         key={nanoid()}

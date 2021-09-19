@@ -7,9 +7,7 @@ function App() {
   const [taskList, setTaskList] = useState([]);
   const [editMode, setEditMode] = useState(false)
   const [currentTask, setCurrentTask] = useState({})
-  useEffect(() => {
-    setTaskList(example);
-  }, []);
+  
   const Container = styled.div`
     display: grid;
     height: 100vh;
@@ -20,7 +18,7 @@ function App() {
     box-sizing: border-box;
     grid-template-rows: 10vh minmax(80vh, 90vh);
   `;
-  const generateNRandomTasks = (n = 0) => {
+  const generateNRandomTasks = (n = 6) => {
     return [...Array(n)].map((_, i) => {
       return { id: nanoid(), desc: `Task ${i + 1}` };
     });
@@ -33,12 +31,14 @@ function App() {
     font-weight: 300;
     text-align: center;
   `;
-
+useEffect(() => {
+    setTaskList(example);
+  }, []);
   return (
     <Container>
       <Title>TODO App con Firebase</Title>
-      <TaskList key={nanoid()} current={setCurrentTask} taskList={taskList} />
-      <TaskDetail key={nanoid()} setCurrent={setCurrentTask} current={currentTask} taskList={setTaskList} />
+      <TaskList key={nanoid()} taskList={taskList} editMode={editMode} setEditMode={ setEditMode} setCurrent={setCurrentTask} current={currentTask}  setTaskList={setTaskList}/>
+      <TaskDetail setCurrent={setCurrentTask} editMode={editMode} setEditMode={setEditMode} current={currentTask} taskList={setTaskList} />
     </Container>
   );
 }

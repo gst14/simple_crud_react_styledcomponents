@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import "boxicons";
-const TaskListItem = ({ id, task, taskList }) => {
+const TaskListItem = ({ id, task, setCurrent, editMode,setEditMode,taskList,setTaskList }) => {
   const TastItem = styled.div`
     display: flex;
     flex-direction: row;
@@ -18,10 +18,16 @@ const TaskListItem = ({ id, task, taskList }) => {
     align-items: center;
     padding-right: 0.625rem;
     margin-bottom: 5px;
+    box-shadow: 0.6px 0.5px 0.9px rgba(0, 0, 0, 0.018),
+      2.4px 1.8px 2.2px rgba(0, 0, 0, 0.028),
+      6px 4.6px 4.1px rgba(0, 0, 0, 0.036),
+      13px 9.9px 7.4px rgba(0, 0, 0, 0.042),
+      27.8px 21.2px 13.8px rgba(0, 0, 0, 0.047),
+      71px 54px 33px rgba(0, 0, 0, 0.04); ;
   `;
 
   const TaskListItemDetail = styled.h3`
-    text-transform: uppercase;
+    margin-left: 30px;
   `;
   const BtnModif = styled.a`
     display: flex;
@@ -30,11 +36,10 @@ const TaskListItem = ({ id, task, taskList }) => {
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    margin-left: 5px;
     cursor: pointer;
     color: #fff;
     text-decoration: none;
-    background-color: #f4a261;
+    background-color: #fdbb17;
   `;
   const BtnDelete = styled.a`
     color: #fff;
@@ -47,7 +52,7 @@ const TaskListItem = ({ id, task, taskList }) => {
     margin-left: 5px;
     text-decoration: none;
     cursor: pointer;
-    background-color: #e76f51;
+    background-color: #fd3f17;
   `;
 
   const BtnArea = styled.div`
@@ -60,9 +65,11 @@ const TaskListItem = ({ id, task, taskList }) => {
       <BtnArea>
         <BtnModif
           onClick={() => {
-            const finded = taskList.find((task) => task.id === id);
+            const filter = taskList.find((task) => task.id === id);
+            setCurrent(filter);
+            setEditMode(true);
             console.log(
-              finded ? `${JSON.stringify(finded)}` : "No hay coincidencias"
+              filter ? `${JSON.stringify(filter)}` : "No hay coincidencias"
             );
           }}
         >
@@ -70,10 +77,9 @@ const TaskListItem = ({ id, task, taskList }) => {
         </BtnModif>
         <BtnDelete
           onClick={() => {
-            const finded = taskList.find((task) => task.id === id);
-            console.log(
-              finded ? `${JSON.stringify(finded)}` : "No hay coincidencias"
-            );
+            const filter = taskList.filter((task) => task.id !== id);
+            setTaskList([...filter]);
+            setCurrent({});
           }}
         >
           <box-icon name="trash-alt" color="#ffffff"></box-icon>
