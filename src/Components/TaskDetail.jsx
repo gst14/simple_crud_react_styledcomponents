@@ -1,8 +1,18 @@
 import { nanoid } from "nanoid";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-const TaskInput = ({taskList}) => {
+const TaskInput = ({ current, setCurrent, taskList }) => {
   const [description, setDescription] = useState("");
+
+  const [taskInput, settaskInput] = useState({});
+
+  useEffect(() => {
+    if (current) {
+      settaskInput(current);
+      setDescription(current.desc);
+    }
+  }, [taskInput]);
+
   const FormContainer = styled.form`
     grid-area: detail;
     margin-right: 10px;
@@ -17,6 +27,7 @@ const TaskInput = ({taskList}) => {
     border: 1px solid #000;
     border-radius: 5px;
   `;
+
   const TextTask = styled.input`
     width: 90%;
     font-weight: 600;
@@ -24,24 +35,25 @@ const TaskInput = ({taskList}) => {
     height: 40px;
   `;
 
-  const submitTask = (e) => {
-    e.preventDefault();
-    taskList( list=>{
-        return [...list,{id: nanoid(), desc: description}]
-    } )
-  };
-
   const BtnSaved = styled.button`
     position: relative;
     font-weight: 600;
     font-family: "Raleway", sans-serif;
     cursor: pointer;
     color: #fff;
-    background-color: #7ac74f;
+    background-color: #000;
     top: -20px;
     width: 90%;
     height: 40px;
   `;
+
+  const submitTask = (e) => {
+    e.preventDefault();
+    taskList((list) => {
+      return [...list, {id: nanoid(), desc: description}];
+    });
+  };
+
   return (
     <FormContainer onSubmit={submitTask}>
       <h3>Add Task</h3>
@@ -54,7 +66,6 @@ const TaskInput = ({taskList}) => {
         onChange={(e) => setDescription(e.target.value)}
         value={description}
       ></TextTask>
-      {/* <TaskDesc /> */}
       <BtnSaved type="submit">Save</BtnSaved>
     </FormContainer>
   );

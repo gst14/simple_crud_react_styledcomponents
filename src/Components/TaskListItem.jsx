@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-const TaskListItem = ({ task }) => {
+import "boxicons";
+const TaskListItem = ({ key, task }) => {
   const TastItem = styled.div`
     display: flex;
     flex-direction: row;
@@ -10,7 +11,7 @@ const TaskListItem = ({ task }) => {
     height: 40px;
     text-align: left;
     padding: 2px;
-    background-color: #d84727;
+    background-color: #264653;
     font-weight: 600;
     font-family: "Raleway", sans-serif;
     color: #fff;
@@ -23,22 +24,30 @@ const TaskListItem = ({ task }) => {
     text-transform: uppercase;
   `;
   const BtnModif = styled.a`
-    display: block;
+    display: flex;
     height: 35px;
     width: 35px;
+    justify-content: center;
+    align-items: center;
     border-radius: 5px;
     margin-left: 5px;
     cursor: pointer;
-    background-color: #21a179;
+    color: #fff;
+    text-decoration: none;
+    background-color: #f4a261;
   `;
   const BtnDelete = styled.a`
-    display: block;
+    color: #fff;
+    display: flex;
     height: 35px;
+    justify-content: center;
+    align-items: center;
     width: 35px;
     border-radius: 5px;
     margin-left: 5px;
+    text-decoration: none;
     cursor: pointer;
-    background-color: #d00000;
+    background-color: #e76f51;
   `;
 
   const BtnArea = styled.div`
@@ -49,8 +58,12 @@ const TaskListItem = ({ task }) => {
     <TastItem>
       <TaskListItemDetail>{task}</TaskListItemDetail>
       <BtnArea>
-        <BtnModif>Mod</BtnModif>
-        <BtnDelete>Del</BtnDelete>
+        <BtnModif>
+          <box-icon name="pencil" color='#ffffff'></box-icon>
+        </BtnModif>
+        <BtnDelete>
+          <box-icon name="trash-alt" color='#ffffff'></box-icon>
+        </BtnDelete>
       </BtnArea>
     </TastItem>
   );
