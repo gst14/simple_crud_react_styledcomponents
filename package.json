@@ -1,11 +1,12 @@
 {
-  "name": "simple_crud_firebase",
+  "name": "simple_crud_styled_component",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "animate.css": "^4.1.1",
     "boxicons": "^2.0.9",
     "nanoid": "^3.1.25",
     "react": "^17.0.2",

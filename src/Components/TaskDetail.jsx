@@ -1,14 +1,18 @@
 import { nanoid } from "nanoid";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-const TaskInput = ({ current, setCurrent, editMode, setEditMode,taskList }) => {
+const TaskInput = ({
+  current,
+  setCurrent,
+  editMode,
+  setEditMode,
+  taskList,
+  setTaskList,
+}) => {
   const [description, setDescription] = useState("");
-
-  const [taskInput, settaskInput] = useState({});
 
   useEffect(() => {
     if (current) {
-      settaskInput(current);
       setDescription(current.desc);
     }
   }, []);
@@ -54,21 +58,34 @@ const TaskInput = ({ current, setCurrent, editMode, setEditMode,taskList }) => {
   `;
 
   const submitTask = (e) => {
-    e.preventDefault();
-    setEditMode(false);
-    taskList((list) => {
-      return [...list, {id: nanoid(), desc: description}];
-    });
+    if (editMode) {
+      editTask();
+    } else {
+      e.preventDefault();
+      setEditMode(false);
+      setTaskList((list) => {
+        return [...list, { id: nanoid(), desc: description }];
+      });
+      setEditMode(false);
+      setCurrent({});
+    }
   };
 
-  const editTask = ()=>{
-      alert(`La tarea: ${JSON.stringify(current)} sera modificada.`);
-      setEditMode(false);
-  }
+  const editTask = () => {
+    const indexToModify = taskList.findIndex((task) => task.id === current.id);
+    let updatedtasks = [...taskList];
+    updatedtasks[indexToModify] = {
+      id: current.id,
+      desc: description,
+    };
+    setTaskList(updatedtasks);
+    setEditMode(false);
+    setCurrent({});
+  };
 
   return (
-    <FormContainer onSubmit={!editMode? submitTask : editTask}>
-      <h3>Add Task</h3>
+    <FormContainer onSubmit={submitTask}>
+      <h3>{editMode ? "Edit task" : "Add Task"}</h3>
       <TextTask
         key={nanoid()}
         type="text"

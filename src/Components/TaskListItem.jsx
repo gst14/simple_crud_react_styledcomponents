@@ -1,7 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import "boxicons";
-const TaskListItem = ({ id, task, setCurrent, editMode,setEditMode,taskList,setTaskList }) => {
+import "animate.css";
+const TaskListItem = ({
+  id,
+  task,
+  setCurrent,
+  editMode,
+  setEditMode,
+  taskList,
+  setTaskList,
+}) => {
   const TastItem = styled.div`
     display: flex;
     flex-direction: row;
@@ -54,6 +63,7 @@ const TaskListItem = ({ id, task, setCurrent, editMode,setEditMode,taskList,setT
     cursor: pointer;
     background-color: #fd3f17;
   `;
+  
 
   const BtnArea = styled.div`
     display: flex;
@@ -61,16 +71,16 @@ const TaskListItem = ({ id, task, setCurrent, editMode,setEditMode,taskList,setT
   `;
   return (
     <TastItem>
-      <TaskListItemDetail>{task}</TaskListItemDetail>
+      <TaskListItemDetail className="animate__bounceIn">
+        {task}
+      </TaskListItemDetail>
       <BtnArea>
         <BtnModif
           onClick={() => {
             const filter = taskList.find((task) => task.id === id);
             setCurrent(filter);
             setEditMode(true);
-            console.log(
-              filter ? `${JSON.stringify(filter)}` : "No hay coincidencias"
-            );
+            console.log(editMode);
           }}
         >
           <box-icon name="pencil" color="#ffffff"></box-icon>
@@ -78,7 +88,8 @@ const TaskListItem = ({ id, task, setCurrent, editMode,setEditMode,taskList,setT
         <BtnDelete
           onClick={() => {
             const filter = taskList.filter((task) => task.id !== id);
-            setTaskList([...filter]);
+            setTaskList(filter);
+            setEditMode(false);
             setCurrent({});
           }}
         >
