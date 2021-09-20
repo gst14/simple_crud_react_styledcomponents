@@ -6,6 +6,7 @@ const TaskList = ({
   editMode,
   setEditMode,
   setCurrent,
+  current,
   setTaskList,
 }) => {
   const TasksContainer = styled.div`
@@ -52,6 +53,7 @@ const TaskList = ({
               setEditMode={setEditMode}
               setCurrent={setCurrent}
               task={desc}
+              currentTask={current}
               taskList={taskList}
               setTaskList={setTaskList}
             />

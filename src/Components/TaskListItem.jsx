@@ -8,6 +8,7 @@ const TaskListItem = ({
   setCurrent,
   editMode,
   setEditMode,
+  currentTask,
   taskList,
   setTaskList,
 }) => {
@@ -39,7 +40,8 @@ const TaskListItem = ({
     margin-left: 30px;
   `;
   const BtnModif = styled.a`
-    display: flex;
+    // display: flex;
+    display: ${editMode && (id === currentTask.id)? "none" : "flex"};
     height: 35px;
     width: 35px;
     justify-content: center;
@@ -51,8 +53,9 @@ const TaskListItem = ({
     background-color: #fdbb17;
   `;
   const BtnDelete = styled.a`
+    // display: flex;
+    display: ${editMode && (id === currentTask.id)? "none" : "flex"};
     color: #fff;
-    display: flex;
     height: 35px;
     justify-content: center;
     align-items: center;
@@ -63,7 +66,20 @@ const TaskListItem = ({
     cursor: pointer;
     background-color: #fd3f17;
   `;
-  
+  const BtnCancel = styled.a`
+  // display: flex;
+  display: ${editMode && (id === currentTask.id)? "flex" : "none"};
+    color: #fff;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    border-radius: 5px;
+    margin-left: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #fd3f17;
+  `;
 
   const BtnArea = styled.div`
     display: flex;
@@ -95,6 +111,15 @@ const TaskListItem = ({
         >
           <box-icon name="trash-alt" color="#ffffff"></box-icon>
         </BtnDelete>
+        <BtnCancel
+          onClick={(e) => {
+            const filter = taskList.filter((task) => task.id !== id);
+            setEditMode(false);
+            setCurrent({});
+          }}
+        >
+          <box-icon name="x-circle" color="#ffffff"></box-icon>
+        </BtnCancel>
       </BtnArea>
     </TastItem>
   );
