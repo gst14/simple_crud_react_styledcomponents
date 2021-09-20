@@ -36,7 +36,7 @@ useEffect(() => {
   }, []);
   return (
     <Container>
-      <Title>TODO App con Firebase</Title>
+      <Title>TODO App with React and Styled Components 💅 </Title>
       <TaskList key={nanoid()} taskList={taskList} editMode={editMode} setEditMode={ setEditMode} setCurrent={setCurrentTask} current={currentTask}  setTaskList={setTaskList}/>
       <TaskDetail setCurrent={setCurrentTask} editMode={editMode} setEditMode={setEditMode} current={currentTask} taskList={taskList} setTaskList={setTaskList} />
     </Container>
